@@ -1,10 +1,11 @@
 # Babbage Printer
 
-Call the printer directly from your browser through library that uses applet
-Java and Javascript.
+Create web applications able to print receipts or coupons using Javascript
+and a Java service.
 
 *Disclaimer: This work is in progress. I first created the documentation for
 then start codiing.*
+
 
 ## Why use it?
 
@@ -26,27 +27,33 @@ example:
 If you are developing a desktop application or can call the printer directly
 from the server side, this is NOT for you.
 
+
 ##  How it works?
 
-First you need import the Javascript library:
+We have a simple web service that receive the requests, handles configuring
+the printing, and sends the document to the printer.
 
-``` html
-<script src="./babbage-printer.js"></script>
+For example:
+http://localhost:4567/pdf?command=Hello world!
+
+```pdf``` is the name of the handler and ```command``` is the content that will 
+be printed.
+
+
+The handlers are configured in a properties file like this:
+
+```
+pdf.printer = Cups-PDF
+pdf.handler = net.castroebarros.babbage.DefaultHandler
 ```
 
-When the browser load the Javascript it will load too the applet Java
-responsible for the communication with the printer.
+So, in our example, our handler is a class that receives that message, creates
+a document and sends it to a virtual printer configurated with the name
+"Cups-PDF", that we use for testings.
 
-Then you can call the printer using several options, for example:
+The handlers can already be easily created. Just create a class implementing
+the Handler interface, put it on classpath, and configure the
+printers.properties file.
 
-``` javascript
-babbage.print({
-  printer: "My Printer",
-  content: "Hello World"
-});
-```
-
-## References
-
-* [Stack Overflow: Can a Java Applet use the Printer](http://stackoverflow.com/questions/438397/can-a-java-applet-use-the-printer)
-
+Lastly we want create some Javascript codes to make easy the integration
+between web application and our Java server.
