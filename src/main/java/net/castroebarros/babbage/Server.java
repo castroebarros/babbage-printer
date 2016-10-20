@@ -7,7 +7,7 @@ public class Server {
 		get("/", (req, res) -> "Welcome to Babbage!");
 		get("/:handler", (req, res) -> {
 			String handler = req.params(":handler");
-			String command = req.params(":command");
+			String command = req.queryParams("command");
 			return Babbage.getInstance().print(handler, command);
 		});
 	}
