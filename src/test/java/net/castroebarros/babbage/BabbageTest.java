@@ -69,9 +69,7 @@ public class BabbageTest {
 	
 	@Test
 	public void testPrint() {
-		DefaultHandler handler = new DefaultHandler();
-		handler.setPrinterName("Cups-PDF");
-		handler.print("Hello world!");
+		Babbage.getInstance().print("pdf", "Hello World!");
 	}
 
 }

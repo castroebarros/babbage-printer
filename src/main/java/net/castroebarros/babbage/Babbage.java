@@ -26,7 +26,7 @@ public class Babbage {
 
 	public HashMap<String, Object> getPrinterConfiguration(String name) {
 		try {
-		    Configuration 			file = configs.properties(new File("printers.properties"));
+		    Configuration file = configs.properties(new File("printers.properties"));
 		    HashMap<String, Object> map  = new HashMap<String, Object>();
 		    
 		    Iterator<String> entries = file.getKeys(name);
@@ -60,6 +60,11 @@ public class Babbage {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public String print(String handlerName, String command) {
+		Handler handler = createHandler(handlerName);
+		return handler.print(command);
 	}
 
 }
